@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Create Blog{% endblock %}
+{% block content %}
+<br/>
+<h1 class="for_center">Create a Blog</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    <label for="title">Enter Blog Title</label>
+    <input name="title" class="form-control form-control-lg" type="text" placeholder="Enter Title">
+    <br/>
+    <label for="caption">Enter Caption</label>
+    <textarea name="caption" id="caption" class="form-control" rows="3"></textarea>
+    <br/>
+    <label for="url">Add Picture</label>
+    <input name="url" class="form-control form-control-lg" type="file" placeholder="Add Picture" accept="image/*" />
+    <br/>
+    <div id="outer">
+        <button type="submit" class = "btn btn-lg btn-primary">Post</button>
+    </div>
+</form>
+<br/>
+<div id="outer">
+    <a href="{{previous_page}}">
+        <button type="button" class="btn btn-secondary btn-lg">Go Back
+        </button>
+    </a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}@{{user.stored_username}}{% endblock %}
+{% block content %}
+
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-5">
+            <div class="card" style="border-radius: 15px;">
+                <div class="card-body p-4">
+                    <div class="d-flex text-black">
+                        <div class="flex-shrink-0">
+                            <img src="{{other_user.stored_profile_photo}}"
+                                style="width: 180px; border-radius: 10px;" />
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="mb-1">{{other_user.stored_username}}</h5>
+                            <br />
+                            {% if other_user.id in following_ids %}
+                            <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
+                                style="background-color: #efefef;">
+                                <div>
+                                    <p class="small text-muted mb-1">
+                                        Blogs
+                                    </p>
+                                    <a href="/user/{{other_user.id}}/blogs">
+                                        <p class="mb-0">{{other_user.stored_blogs.count()}}</p>
+                                    </a>
+                                </div>
+                                <div class="px-3">
+                                    <p class="small text-muted mb-1">
+                                        Followers
+                                    </p>
+                                    <a href="/user/{{other_user.id}}/followers">
+                                        <p class="mb-0">{{other_user.stored_followers.count()}}</p>   
+                                    </a>
+                                </div>
+                                <div>
+                                    <p class="small text-muted mb-1">
+                                        Following
+                                    </p>
+                                    <a href="/user/{{other_user.id}}/following">
+                                        <p class="mb-0">{{other_user.stored_following.count()}}</p> 
+                                    </a>
+                                </div>
+                                
+                            </div>
+                            <br />
+                            <div class="d-flex pt-1">
+                                <a href="/user/{{other_user.id}}/follow">
+                                    <button type="button" class="btn btn-primary flex-grow-1">
+                                        Unfollow
+                                    </button>
+                                </a>
+                            </div>
+                            {% else %}
+                            <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
+                                style="background-color: #efefef;">
+                                <div>
+                                    <p class="small text-muted mb-1">
+                                        Blogs
+                                    </p>
+                                    <p class="mb-0">{{other_user.stored_blogs.count()}}</p>
+                                </div>
+                                <div class="px-3">
+                                    <p class="small text-muted mb-1">
+                                        Followers
+                                    </p>
+                                    <p class="mb-0">{{other_user.stored_followers.count()}}</p> 
+                                </div>
+                                <div>
+                                    <p class="small text-muted mb-1">
+                                        Following
+                                    </p>
+                                    <p class="mb-0">{{other_user.stored_following.count()}}</p> 
+                                </div>
+                                
+                            </div>
+                            <br />
+                            <div class="d-flex pt-1">
+                                <a href="/user/{{other_user.id}}/follow">
+                                    <button type="button" class="btn btn-primary flex-grow-1">
+                                        Follow
+                                    </button>
+                                </a>
+                            </div>
+                                {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

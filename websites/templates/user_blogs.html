@@ -1,0 +1,27 @@
+{% extends "blogs_div.html" %}
+
+{% block title %}
+    {% if user.id == other_user.id %}
+        My Blogs 
+    {% else %}
+        @{{other_user.stored_username}}'s Blogs
+    {% endif %}
+{% endblock%}
+
+{% block header %}
+    {% if user.id == other_user.id %}
+        My Blogs 
+    {% else %}
+        @{{other_user.stored_username}}'s Blogs
+    {% endif %}
+    {% if user.id == other_user.id %}
+    <div id="outer">
+        <a href="/create-blog">
+            <button type="button" class="btn btn-secondary btn-lg">Create a blog
+            </button>
+        </a>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block footer %}{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}
+    A
+{% endblock %}
+
+
+
+{% block content %}
+<h1 id="outer">
+    {% block header %}
+        Results for "{{to_search}}"
+    {% endblock %}
+</h1>
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+<div class="row">
+	<div class="col-lg-12">
+		<div class="main-box clearfix">
+			<div class="table-responsive">
+				<table class="table user-list" style="border-collapse:separate; border-spacing:0 15px;">
+					<thead>
+						<tr>
+							<th>User</th>
+							<th>Created</th>
+							<th style="padding-left: 100px;">Email</th>
+							<th>&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody style="background-color: lightgrey; ">
+                        {% for each_user in users_results %}
+						<tr>
+							<td>
+								<img src="{{each_user.stored_profile_photo}}"
+                                style="width: 100px; border-radius: 10px;" />
+                                <a href="/user/{{each_user.id}}" class="user-link">
+                                    @{{each_user.stored_username}}
+                                </a>
+							</td>
+							<td>
+								{{each_user.stored_timestamp.strftime("%d-%m-%Y")}}
+							</td>
+							<td>
+								{{each_user.stored_email}}
+							</td>
+							
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			
+		</div>
+	</div>
+</div>
+</div>
+{% endblock %}
+

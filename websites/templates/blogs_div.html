@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}My Blogs{% endblock %}
+{% block content %}
+
+<h1 id="outer">{% block header %}Blogs{% endblock %}</h1>
+
+<div id="user_blogs">
+    {% for blog in blogs %}
+    <div class="card border-dark">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <a class="card-text" href="/user/{{blog.user.id}}">@{{blog.user.stored_username}}</a>
+            <div>
+                {{blog.stored_likes | length}}
+                {% set liked = namespace(found=false) %}
+                {% for like in blog.stored_likes|list %}
+                    {% if like.author ==  user.id %}
+                        {% set liked.found = true %}
+                    {% endif %}
+                {% endfor %}
+
+
+                {% if liked.found %}
+                {% set icon_class = "fas fa-heart"%}
+                {% else %}
+                {% set icon_class = "far fa-heart"%}
+                {% endif %}
+
+
+                <a href="/like-blog/{{blog.id}}"><i class="{{icon_class}}"></i></a>
+
+
+
+                
+                
+                {% if user.id == blog.author %}
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm dropdown-toggle " data-bs-toggle="dropdown"></button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/edit-blog/{{blog.id}}">Edit</a></li>
+                        <li><a class="dropdown-item" href="/delete-blog/{{blog.id}}" onclick="return confirm('Are you sure you want to delete this item')">Delete</a></li>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-text"><b>Title: </b>{{blog.stored_title}}</div>
+            <div class="card-text"><b>Caption: </b>{{blog.stored_caption}}</div>
+            <div class="card-text" style=" position: relative; width: 35%;margin: 0 auto; text-align: center;" >
+                <img width="400" height="400" src="{{blog.stored_url}}"  />
+            </div>
+            <br />
+            <div class="collapse" id="comments-{{blog.id}}">
+                <div class="card">
+                    <div class="card-body" id="comments-expanded-{{blog.id}}">
+                        {% for comment in blog.stored_comments|sort(attribute='stored_timestamp', reverse = True) %}
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <a href="/user/{{comment.author}}">{{comment.user.stored_username}}</a>
+                                : {{comment.stored_text}}
+                            </div>
+                            <div>
+                                <small class="text-muted"> {{comment.stored_timestamp.strftime("%d-%m-%Y
+                                    %H:%M:%S")}}</small>
+                                {% if user.id == blog.author or user.id == comment.author %}
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm dropdown-toggle "
+                                        data-bs-toggle="dropdown"></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="/delete-comment/{{comment.id}}">Delete</a>
+                                        </li>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <p class="card-text">
+                {% if blog.stored_comments|length > 0 %}
+                <a data-bs-toggle="collapse" href="#comments-{{blog.id}}" role="button">
+                    <small>View {{blog.stored_comments|length}} comments</small>
+                </a>
+                {% else %}
+                <small class="text-muted">No Comments!</small>
+                {% endif %}
+            </p>
+            <form class="input-group mb-3" method="POST" action="/blogs/{{blog.id}}/create-comment">
+                <input type="text" id="create_comment" name="text" class="form-control" placeholder="Add a comment!" />
+                <button type="submit" class="btn btn-primary">Post</button>
+            </form>
+        </div>
+        <div class="card-footer text-muted">
+            <div class="card-text">{{blog.stored_timestamp.strftime("%d-%m-%Y %H:%M:%S")}}</div>
+        </div>
+    </div>
+    <br />
+    {% endfor %}
+</div>
+{% block footer %}
+<div id="outer">
+    <a href="/create-blog">
+        <button type="button" class="btn btn-secondary btn-lg">Create a blog
+        </button>
+    </a>
+</div>
+{% endblock %}
+
+{% endblock %}

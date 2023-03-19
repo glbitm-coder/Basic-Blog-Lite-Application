@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+
+<section class="h-100 gradient-custom-2">
+    <div class="container py-3 h-100">
+        <div class="row d-flex justify-content-center align-items-center ">
+            <div class="col col-lg-9 col-xl-10">
+                <div class="card">
+                    <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:150px;">
+                        <div class="ms-4 mt-1 d-flex flex-column" style="width: 150px;">
+                            <img src="{{user.stored_profile_photo}}" alt="Generic placeholder image"
+                                class="img-thumbnail mt-4 mb-2" style="max-width: 200px; max-height: 150px;  z-index: 1" />
+                            <a style="z-index: 1;" href="/edit-profile">
+                                <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
+                                    style="z-index: 1; height: 50px; width: 150px;">
+                                    Edit profile
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-4 text-black" style="background-color: #f8f9fa;">
+                        <div class="d-flex justify-content-end text-center py-1">
+                            <div>
+                                <a href="/user/{{user.id}}/blogs">
+                                    <p class="mb-1 h5">{{user.stored_blogs.count()}}</p>
+                                </a>
+                                <p class="small text-muted mb-0">Blogs</p>
+                            </div>
+                            <div class="px-3">
+                                <a href="/user/{{user.id}}/followers">
+                                    <p class="mb-1 h5">{{user.stored_followers.count()}}</p>
+                                </a>
+                                <p class="small text-muted mb-0">Followers</p>
+                            </div>
+                            <div>
+                                <a href="/user/{{user.id}}/following">
+                                    <p class="mb-1 h5">{{user.stored_following.count()}}</p>
+                                </a>
+                                <p class="small text-muted mb-0">Following</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="row" style="margin-top:-10px; margin-bottom: -30px;">
+                                <div class="col">
+                                    <div class="card-body p-4 text-black">
+                                        <label>Name</label>
+                                        <div class="p-4" style="background-color: #f8fafa;">
+                                            <div>{{user.stored_name}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card-body p-4 text-black">
+                                        <label>Username</label>
+                                        <div class="p-4" style="background-color: #f8f9fa;">
+                                            <div class="font-italic mb-1">{{user.stored_username}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:-30px; margin-bottom: -30px;">
+                                <div class="col">
+                                    <div class="card-body p-4 text-black">
+                                        <label>Email</label>
+                                        <div class="p-4" style="background-color: #f8fafa;">
+                                            <div>{{user.stored_email}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" >
+                                <div class="col">
+                                    <div class="card-body p-4 text-black">
+                                        <label>About</label>
+                                        <div class="p-4" style="background-color: #f8fafa;">
+                                            <div>{{user.stored_bio}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
